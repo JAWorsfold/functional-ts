@@ -5,10 +5,10 @@
   "license": "MIT",
   "scripts": {
     "build": "npx tsc -p tsconfig.json",
-    "log:curry": "ts-node CompositionAndCurrying.ts",
-    "log:option": "ts-node OptionSomeNone.ts",
-    "log:tail": "ts-node Recursion.ts",
-    "log:either": "ts-node Either.ts"
+    "log:curry": "ts-node ./src/CompositionAndCurrying.ts",
+    "log:option": "ts-node ./src/OptionSomeNone.ts",
+    "log:tail": "ts-node ./src/Recursion.ts",
+    "log:either": "ts-node ./src/Either.ts"
   },
   "dependencies": {
     "@types/node": "^20.5.0",
