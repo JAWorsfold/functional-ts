@@ -2,24 +2,20 @@
 // Composition
 // ------------------------------
 
+import { compose, tostring } from "shared";
+
 type Increment = (x: number) => number;
 const increment: Increment = (x) => x + 1;
 console.log(increment(3));
 
-type Tostring = (x: number) => string;
-const tostring: Tostring = (x) => `"${x}"`;
+// see shared.ts for tostring definition
 console.log(tostring(4));
 
 type IncrementToString = (x: number) => string;
 const incrementToString: IncrementToString = (x) => tostring(increment(x));
 console.log(incrementToString(5));
 
-// type Compose = (f: Tostring, g: Increment) => incrementToString
-type Compose = <A, B, C>(
-  f: (x: B) => C, // was f: (x: number) => string,
-  g: (x: A) => B // was g: (x: number) => number
-) => (x: A) => C; // was => (x: number) => string
-const compose: Compose = (f, g) => (x) => f(g(x));
+// see shared.ts for compose definition
 const incrementToString2: IncrementToString = compose(tostring, increment);
 console.log(incrementToString2(6));
 
@@ -52,10 +48,6 @@ const curry2: CurryTwo = (f) => (a) => (b) => f(a, b);
 const sum2 = curry2(normal_sum);
 console.log(sum2(3)(4));
 
-type StringConcat = (a: string, b: string) => string;
-const stringConcat: StringConcat = (a, b) => a + b;
-
-const curryString: CurryTwo = (f) => (a) => (b) => f(a, b);
 function normal_concat(a: string, b: string): string {
   return a + b;
 }
