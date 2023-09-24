@@ -1,11 +1,10 @@
+import { Increment, compose, increment, tostring } from "./shared";
+
 // ------------------------------
 // Composition
 // ------------------------------
 
-import { compose, tostring } from "shared";
-
-type Increment = (x: number) => number;
-const increment: Increment = (x) => x + 1;
+// see shared.ts for increment definition
 console.log(increment(3));
 
 // see shared.ts for tostring definition

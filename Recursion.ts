@@ -50,6 +50,7 @@ type FactGo = (o: FactGoValue) => number;
 
 const factorialTailRecursive: FactGo = (o) => {
   if (o.num === 1) return o.acc;
+  o.acc = o.acc * o.num;
   o.num = o.num - 1;
   return factorialTailRecursive(o);
 };
