@@ -8,7 +8,8 @@
     "log:curry": "ts-node ./src/CompositionAndCurrying.ts",
     "log:option": "ts-node ./src/OptionSomeNone.ts",
     "log:tail": "ts-node ./src/Recursion.ts",
-    "log:either": "ts-node ./src/Either.ts"
+    "log:either": "ts-node ./src/Either.ts",
+    "log:list": "ts-node ./src/LinkedLists.ts"
   },
   "dependencies": {
     "@types/node": "^20.5.0",
