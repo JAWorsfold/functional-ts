@@ -32,7 +32,7 @@ const showList: ShowList = <A>(xs: List<A>) =>
     ? ''
     : `${xs.head}` + (isNil(xs.tail) ? '' : `, ${showList(xs.tail)}`)
 
-console.log(showList(myList))
+console.log('Recursive showList(myList): ', showList(myList))
 
 // tail recursive version
 type ShowListTail = <A>(xs: List<A>, acc: string) => string
@@ -43,4 +43,23 @@ const showListTail: ShowListTail = <A>(xs: List<A>, acc: string) =>
         xs.tail,
         acc + (isNil(xs.tail) ? `${xs.head}` : `${xs.head}, `)
       )}`
-console.log(showListTail(myList, ''))
+console.log(
+  "Tail recursive showListTail(myList, ''): ",
+  showListTail(myList, '')
+)
+
+type curryShowListTail = <A>(xs: List<A>) => (acc: string) => string
+const curryShowListTail: curryShowListTail =
+  <A>(xs: List<A>) =>
+  (acc: string) =>
+    isNil(xs)
+      ? acc
+      : `${showListTail(
+          xs.tail,
+          acc + (isNil(xs.tail) ? `${xs.head}` : `${xs.head}, `)
+        )}`
+
+console.log(
+  "Curried tail recursive curryShowListTail(myList)(''): ",
+  curryShowListTail(myList)('')
+)
