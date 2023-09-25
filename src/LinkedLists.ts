@@ -25,3 +25,22 @@ const isNil = <A>(xs: List<A>): xs is Nil => xs._tag === 'Nil'
 // 1, 2, 3,
 const myList = cons(1, cons(2, cons(3, nil)))
 console.log(JSON.stringify(myList, null, 2))
+
+type ShowList = <A>(xs: List<A>) => string
+const showList: ShowList = <A>(xs: List<A>) =>
+  isNil(xs)
+    ? ''
+    : `${xs.head}` + (isNil(xs.tail) ? '' : `, ${showList(xs.tail)}`)
+
+console.log(showList(myList))
+
+// tail recursive version
+type ShowListTail = <A>(xs: List<A>, acc: string) => string
+const showListTail: ShowListTail = <A>(xs: List<A>, acc: string) =>
+  isNil(xs)
+    ? acc
+    : `${showListTail(
+        xs.tail,
+        acc + (isNil(xs.tail) ? `${xs.head}` : `${xs.head}, `)
+      )}`
+console.log(showListTail(myList, ''))
