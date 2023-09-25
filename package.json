@@ -9,7 +9,8 @@
     "log:option": "ts-node ./src/OptionSomeNone.ts",
     "log:tail": "ts-node ./src/Recursion.ts",
     "log:either": "ts-node ./src/Either.ts",
-    "log:list": "ts-node ./src/LinkedLists.ts"
+    "log:list": "ts-node ./src/LinkedLists.ts",
+    "log:pattern": "ts-node ./src/PatternMatching.ts"
   },
   "dependencies": {
     "@types/node": "^20.5.0",
