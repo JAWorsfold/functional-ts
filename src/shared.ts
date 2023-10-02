@@ -47,3 +47,23 @@ export const right = <A, E = never>(a: A): Either<E, A> => ({
 
 export const isLeft = <E, A>(x: Either<E, A>): x is Left<E> => x._tag === 'Left'
 // const isRight = <E, A>(x: Either<E, A>): x is Right<A> => x._tag === 'Right'
+
+export type List<A> = Nil | Cons<A>
+
+interface Nil {
+  readonly _tag: 'Nil'
+}
+export interface Cons<A> {
+  readonly _tag: 'Cons'
+  readonly head: A
+  readonly tail: List<A>
+}
+
+export const nil: List<never> = { _tag: 'Nil' }
+export const cons = <A>(head: A, tail: List<A>): List<A> => ({
+  _tag: 'Cons',
+  head,
+  tail,
+})
+
+export const isNil = <A>(xs: List<A>): xs is Nil => xs._tag === 'Nil'

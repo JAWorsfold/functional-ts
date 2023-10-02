@@ -1,4 +1,18 @@
-import { Option, some, isNone, Either, isLeft, right, left } from './shared'
+import {
+  Option,
+  some,
+  isNone,
+  Either,
+  isLeft,
+  right,
+  left,
+  List,
+  isNil,
+  nil,
+  cons,
+  Cons,
+} from './shared'
+import { match } from 'ts-pattern'
 
 // ------------------------------
 // ADT and Pattern Matching
@@ -47,3 +61,26 @@ const leftResult = matchE(
 console.log(leftResult)
 
 // List
+type MatchL = <A, B>(
+  onNil: () => B,
+  onCons: (head: A, tail: List<A>) => B
+) => (xs: List<A>) => B
+const matchL: MatchL = (onNil, onCons) => (xs) =>
+  isNil(xs) ? onNil() : onCons(xs.head, xs.tail)
+
+const myList: List<number> = cons(1, cons(2, cons(3, nil)))
+const resultL = matchL(
+  () => `list is empty`,
+  (head: number, tail: List<number>) => `head is ${head}, tail is ${tail}`
+)(myList)
+console.log(resultL)
+
+// ts-pattern's match
+const result = match(myList)
+  .with({ _tag: 'Nil' }, () => `list is empty`)
+  .with(
+    { _tag: 'Cons' },
+    ({ head, tail }: Cons<number>) => `head is ${head}, tail is ${tail}`
+  )
+  .exhaustive()
+console.log(result)
