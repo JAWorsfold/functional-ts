@@ -77,13 +77,13 @@ const addMonoid: Monoid<number> = { ...addSemigroup, empty: 0 }
 const multiplyMonoid: Monoid<number> = { ...multiplySemigroup, empty: 1 }
 const appendMonoid: Monoid<string> = { ...appendSemigroup, empty: '' }
 
-const concatAllMonoid = 
-  <A>(m: Monoid<A>) =>
-  (xs: List<A>): A =>
-    matchL(
-      () => m.empty,
-      (head: A, tail: List<A>) => m.concat(head, concatAllMonoid(m)(tail))
-    )(xs)
+// converted this to point free style by first defining the function type
+type ConcatAllMonoid = <A>(m: Monoid<A>) => (xs: List<A>) => A
+const concatAllMonoid: ConcatAllMonoid = <A>(m: Monoid<A>) =>
+  matchL(
+    () => m.empty,
+    (head: A, tail: List<A>) => m.concat(head, concatAllMonoid(m)(tail))
+  )
 
 console.log(concatAllMonoid(addMonoid)(cons(2, cons(3, cons(4, nil)))))
 console.log(concatAllMonoid(multiplyMonoid)(cons(2, cons(2, cons(4, nil)))))
