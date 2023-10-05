@@ -66,4 +66,27 @@ console.log(
   concatAll(appendSemigroup)('')(cons('hello', cons(' ', cons('world', nil))))
 )
 
-// Monoid ()
+// Monoid (the above has to pass the initial value)
+// (but if it's always the same we can use monoid)
+
+interface Monoid<A> extends Semigroup<A> {
+  empty: A
+}
+
+const addMonoid: Monoid<number> = { ...addSemigroup, empty: 0 }
+const multiplyMonoid: Monoid<number> = { ...multiplySemigroup, empty: 1 }
+const appendMonoid: Monoid<string> = { ...appendSemigroup, empty: '' }
+
+const concatAllMonoid = 
+  <A>(m: Monoid<A>) =>
+  (xs: List<A>): A =>
+    matchL(
+      () => m.empty,
+      (head: A, tail: List<A>) => m.concat(head, concatAllMonoid(m)(tail))
+    )(xs)
+
+console.log(concatAllMonoid(addMonoid)(cons(2, cons(3, cons(4, nil)))))
+console.log(concatAllMonoid(multiplyMonoid)(cons(2, cons(2, cons(4, nil)))))
+console.log(
+  concatAllMonoid(appendMonoid)(cons('hello', cons(' ', cons('world', nil))))
+)
