@@ -67,3 +67,13 @@ Run file with:
 ```bash
 yarn log:pattern
 ```
+
+## Magma, Semigroup, Monoid
+
+[Magma, Semigroup, Monoid](./src/MagmaSemiGroupMonoid.ts)
+
+Run file with:
+
+```bash
+yarn log:monoid
+```
