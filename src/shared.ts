@@ -67,3 +67,10 @@ export const cons = <A>(head: A, tail: List<A>): List<A> => ({
 })
 
 export const isNil = <A>(xs: List<A>): xs is Nil => xs._tag === 'Nil'
+
+export type MatchL = <A, B>(
+  onNil: () => B,
+  onCons: (head: A, tail: List<A>) => B
+) => (xs: List<A>) => B
+export const matchL: MatchL = (onNil, onCons) => (xs) =>
+  isNil(xs) ? onNil() : onCons(xs.head, xs.tail)
